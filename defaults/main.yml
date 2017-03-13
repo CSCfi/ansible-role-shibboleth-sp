@@ -1,0 +1,25 @@
+---
+# defaults file for shibboleth-sp
+
+shibboleth_state: latest
+
+# shibboleth_debug [ true / false ]
+
+shibboleth_debug: true
+
+# shibd.logger will  be modified is shibboleth_debug is true
+shibboleth_rootcategory: DEBUG, shibd_log, warn_log
+shibboleth_propertyset: DEBUG
+shibboleth_messagedecoder: DEBUG
+shibboleth_messageencoder: DEBUG
+shibboleth_debugger: DEBUG, sig_log
+
+# shibboleth2.xml hardening options
+shibboleth_signing: front
+shibboleth_encryption: false
+shibboleth_handlerssl: true
+shibboleth_redirectLimit: exact
+shibboleth_cookieprops: https
+
+
+
