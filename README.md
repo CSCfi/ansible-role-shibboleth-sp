@@ -6,8 +6,9 @@ An role which installs Shibboleth SP on RedHat/Debian servers.
 Requirements
 ------------
 
-cmprescott.xml ( Mandatory )
-CSC-IT-Center-for-Science.apache ( Optional but suggested )
+* cmprescott.xml ( Mandatory )
+* CSC-IT-Center-for-Science.apache ( Optional but suggested )
+
 This Role installs apache web server if not already installed, but doesnt perform any configuration for it.
 
 Role Variables
