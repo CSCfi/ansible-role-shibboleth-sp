@@ -2,4 +2,4 @@
 ---
 - hosts: all
   roles:
-    - shibboleth-sp
+    - role_under_test
