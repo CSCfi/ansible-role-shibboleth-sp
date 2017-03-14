@@ -11,23 +11,21 @@ Requirements
 * cmprescott.xml ( Mandatory )
 * CSC-IT-Center-for-Science.apache ( Optional but suggested )
 
-This Role installs apache web server if not already installed, but doesnt perform any configuration for it.
+This Role installs apache web server if not already installed but doesnt perform any configuration for it.
 
 Role Variables
 --------------
 
-See defaults/main.yml for the variables you can overwrite via role call as parameter
-
-shibboleth_state: latest
-shibboleth_debug: [ true / false ]
+See defaults/main.yml for the variables you can overwrite via role call via parameter
+* shibboleth_state: latest
+* shibboleth_debug: [ true / false ]
 
 shibboleth2.xml default configuration
-
-shibboleth_signing: front
-shibboleth_encryption: false
-shibboleth_handlerssl: true
-shibboleth_redirectLimit: exact
-shibboleth_cookieprops: https
+* shibboleth_signing: front
+* shibboleth_encryption: false
+* shibboleth_handlerssl: true
+* shibboleth_redirectLimit: exact
+* shibboleth_cookieprops: https
 
 Dependencies
 ------------
