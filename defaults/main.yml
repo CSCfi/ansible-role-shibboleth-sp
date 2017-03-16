@@ -5,14 +5,14 @@ shibboleth_state: latest
 
 # shibboleth_debug [ true / false ]
 
-shibboleth_debug: true
+shibboleth_debug: false
 
 # shibd.logger will  be modified is shibboleth_debug is true
-shibboleth_rootcategory: DEBUG, shibd_log, warn_log
-shibboleth_propertyset: DEBUG
-shibboleth_messagedecoder: DEBUG
-shibboleth_messageencoder: DEBUG
-shibboleth_debugger: DEBUG, sig_log
+shibboleth_rootcategory: "{% if shibboleth_debug == true %}DEBUG, shibd_log, warn_log{% else %}INFO, shibd_log, warn_log{% endif %}"
+shibboleth_propertyset: "{% if shibboleth_debug == true %}DEBUG{% else %}INFO{% endif %}"
+shibboleth_messagedecoder: "{% if shibboleth_debug == true %}DEBUG{% else %}WARN{% endif %}"
+shibboleth_messageencoder: "{% if shibboleth_debug == true %}DEBUG{% else %}WARN{% endif %}"
+shibboleth_debugger: "{% if shibboleth_debug == true %}DEBUG, sig_log{% else %}INFO, sig_log{% endif %}"
 
 # shibboleth2.xml hardening options
 shibboleth_signing: front
