@@ -56,7 +56,6 @@
     - { option: 'log4j.category.OpenSAML.MessageDecoder', value: "{{ shibboleth_messagedecoder }}" }
     - { option: 'log4j.category.OpenSAML.MessageEncoder', value: "{{ shibboleth_messageencoder }}" }
     - { option: 'log4j.category.XMLTooling.Signature.Debugger', value: "{{ shibboleth_debugger }}" }
-  when: shibboleth_debug == true
   notify: restart shibboleth-sp
 
 - name: Shibboleth SP | Configure | Baseline
@@ -76,4 +75,3 @@
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions", attribute: cookieProps, value: "{{ shibboleth_cookieprops }}", ensure: present }
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions/x:SSO", attribute: NULL, value: SAML2, ensure: present }
   notify: restart shibboleth-sp
-
