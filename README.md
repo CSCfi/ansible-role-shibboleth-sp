@@ -11,7 +11,7 @@ Requirements
 * cmprescott.xml ( Mandatory )
 * CSC-IT-Center-for-Science.apache ( Optional but suggested )
 
-This Role installs apache web server if not already installed but doesnt perform any configuration for it.
+This Role installs shibboleth-sp if not already installed and configures some defaults options. Also Debug can be switched [On/Off].
 
 Role Variables
 --------------
@@ -35,7 +35,7 @@ cmprescott.xml
 Example Playbook
 ----------------
 
-    - hosts: apache
+    - hosts: localhost
       roles:
         - { role: CSC-IT-Center-for-Science.shibboleth-sp }
 
