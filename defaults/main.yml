@@ -2,6 +2,8 @@
 # defaults file for shibboleth-sp
 
 shibboleth_state: latest
+shibboleth_fqdn: "{{ ansible_fqdn }}"
+shibboleth_entityid: https://{{ shibboleth_fqdn }}/shibboleth
 
 # shibboleth_debug [ true / false ]
 
