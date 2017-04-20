@@ -68,6 +68,7 @@
     namespaces:
       x: urn:mace:shibboleth:2.0:native:sp:config
   with_items:
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults", attribute: entityID, value: "{{ shibboleth_entityid }}", ensure: present }
     - { xpath: "//x:SPConfig/x:ApplicationDefaults", attribute: signing, value: "{{ shibboleth_signing | lower }}", ensure: present }
     - { xpath: "//x:SPConfig/x:ApplicationDefaults", attribute: encryption, value: "{{ shibboleth_encryption | lower }}", ensure: present }
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions", attribute: handlerSSL, value: "{{ shibboleth_handlerssl | lower }}", ensure: present }
