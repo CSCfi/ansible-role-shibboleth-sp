@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/CSC-IT-Center-for-Science/ansible-role-shibboleth-sp.svg?branch=master)](https://travis-ci.org/CSC-IT-Center-for-Science/ansible-role-shibboleth-sp)
+[![Build Status](https://travis-ci.org/CSCfi/ansible-role-shibboleth-sp.svg?branch=master)](https://travis-ci.org/CSCfi/ansible-role-shibboleth-sp)
 
 Ansible-Role: Shibboleth SP
 =========
@@ -9,7 +9,7 @@ Requirements
 ------------
 
 * cmprescott.xml ( Mandatory )
-* CSC-IT-Center-for-Science.apache ( Optional but suggested )
+* CSCfi.apache ( Optional but suggested )
 
 This Role installs shibboleth-sp if not already installed and configures some defaults options. Also Debug can be switched [On/Off].
 
@@ -35,7 +35,7 @@ cmprescott.xml
 Example Playbook
 ----------------
 
-    - hosts: localhost
+    - hosts: all
       roles:
-        - { role: CSC-IT-Center-for-Science.shibboleth-sp }
+        - { role: CSCfi.shibboleth-sp }
 
