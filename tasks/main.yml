@@ -18,12 +18,12 @@
 
 - name: Shibboleth SP | Define | Packages
   set_fact:
-    shibboleth_packages: "{{ __shibboleth_packages | list }}"
-  when: shibboleth_packages is not defined
+    shibboleth_sp_packages: "{{ __shibboleth_packages | list }}"
+  when: shibboleth_sp_packages is not defined
 
 - name: Shibboleth SP | Install
   package: name={{ item }} state={{ shibboleth_state }}
-  with_items: "{{ shibboleth_packages }}"
+  with_items: "{{ shibboleth_sp_packages }}"
 
 - name: Shibboleth SP | Enable | Shibboleth
   service:
