@@ -5,7 +5,7 @@
   with_first_found:
     - "{{ ansible_os_family }}.yml"
     - "default.yml"
-  when: __shibboleth_packages is not defined or shibboleth_service_name is not defined
+  when: __shibbolethsp_packages is not defined or shibbolethsp_service_name is not defined
 
 - name: Shibboleth SP | Repository | Add
   yum_repository:
@@ -18,16 +18,16 @@
 
 - name: Shibboleth SP | Define | Packages
   set_fact:
-    shibboleth_sp_packages: "{{ __shibboleth_packages | list }}"
-  when: shibboleth_sp_packages is not defined
+    shibbolethsp_packages: "{{ __shibbolethsp_packages | list }}"
+  when: shibbolethsp_packages is not defined
 
 - name: Shibboleth SP | Install
-  package: name={{ item }} state={{ shibboleth_state }}
-  with_items: "{{ shibboleth_sp_packages }}"
+  package: name={{ item }} state={{ shibbolethsp_state }}
+  with_items: "{{ shibbolethsp_packages }}"
 
 - name: Shibboleth SP | Enable | Shibboleth
   service:
-    name: "{{ shibboleth_service_name }}"
+    name: "{{ shibbolethsp_service_name }}"
     state: started
     enabled: yes
 
@@ -37,11 +37,11 @@
 - name: Shibboleth SP | Template | attribute-map.xml
   template: src=attribute-map.xml dest=/etc/shibboleth/attribute-map.xml backup=yes
 
-- name: Shibboleth SP | Configure | Debug | {{ shibboleth_debug }}
+- name: Shibboleth SP | Configure | Debug | {{ shibbolethsp_debug }}
   xml:
     xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions/x:Handler[@type='Session']"
     attribute: showAttributeValues
-    value: "{{ shibboleth_debug }}"
+    value: "{{ shibbolethsp_debug }}"
     ensure: present
     file: /etc/shibboleth/shibboleth2.xml
     namespaces:
@@ -51,11 +51,11 @@
 - name: Shibboleth SP | Configure | Logging
   lineinfile: dest=/etc/shibboleth/shibd.logger regexp="^#?\s*({{ item.option }}\s*=)" backrefs=yes  line="\\1{{ item.value }}"
   with_items:
-    - { option: 'log4j.rootCategory', value: "{{ shibboleth_rootcategory }}" }
-    - { option: 'log4j.category.Shibboleth.PropertySet', value: "{{ shibboleth_propertyset }}" }
-    - { option: 'log4j.category.OpenSAML.MessageDecoder', value: "{{ shibboleth_messagedecoder }}" }
-    - { option: 'log4j.category.OpenSAML.MessageEncoder', value: "{{ shibboleth_messageencoder }}" }
-    - { option: 'log4j.category.XMLTooling.Signature.Debugger', value: "{{ shibboleth_debugger }}" }
+    - { option: 'log4j.rootCategory', value: "{{ shibbolethsp_rootcategory }}" }
+    - { option: 'log4j.category.Shibboleth.PropertySet', value: "{{ shibbolethsp_propertyset }}" }
+    - { option: 'log4j.category.OpenSAML.MessageDecoder', value: "{{ shibbolethsp_messagedecoder }}" }
+    - { option: 'log4j.category.OpenSAML.MessageEncoder', value: "{{ shibbolethsp_messageencoder }}" }
+    - { option: 'log4j.category.XMLTooling.Signature.Debugger', value: "{{ shibbolethsp_debugger }}" }
   notify: restart shibboleth-sp
 
 - name: Shibboleth SP | Configure | Baseline
@@ -68,11 +68,11 @@
     namespaces:
       x: urn:mace:shibboleth:2.0:native:sp:config
   with_items:
-    - { xpath: "//x:SPConfig/x:ApplicationDefaults", attribute: entityID, value: "{{ shibboleth_entityid }}", ensure: present }
-    - { xpath: "//x:SPConfig/x:ApplicationDefaults", attribute: signing, value: "{{ shibboleth_signing | lower }}", ensure: present }
-    - { xpath: "//x:SPConfig/x:ApplicationDefaults", attribute: encryption, value: "{{ shibboleth_encryption | lower }}", ensure: present }
-    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions", attribute: handlerSSL, value: "{{ shibboleth_handlerssl | lower }}", ensure: present }
-    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions", attribute: redirectLimit, value: "{{ shibboleth_redirectLimit }}", ensure: present }
-    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions", attribute: cookieProps, value: "{{ shibboleth_cookieprops }}", ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults", attribute: entityID, value: "{{ shibbolethsp_entityid }}", ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults", attribute: signing, value: "{{ shibbolethsp_signing | lower }}", ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults", attribute: encryption, value: "{{ shibbolethsp_encryption | lower }}", ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions", attribute: handlerSSL, value: "{{ shibbolethsp_handlerssl | lower }}", ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions", attribute: redirectLimit, value: "{{ shibbolethsp_redirectLimit }}", ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions", attribute: cookieProps, value: "{{ shibbolethsp_cookieprops }}", ensure: present }
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions/x:SSO", attribute: NULL, value: SAML2, ensure: present }
   notify: restart shibboleth-sp

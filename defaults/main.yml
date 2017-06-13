@@ -1,27 +1,27 @@
 ---
 # defaults file for shibboleth-sp
 
-shibboleth_state: latest
-shibboleth_fqdn: "{{ ansible_fqdn }}"
-shibboleth_entityid: https://{{ shibboleth_fqdn }}/shibboleth
+shibbolethsp_state: latest
+shibbolethsp_fqdn: "{{ ansible_fqdn }}"
+shibbolethsp_entityid: https://{{ shibbolethsp_fqdn }}/shibboleth
 
-# shibboleth_debug [ true / false ]
+# shibbolethsp_debug [ true / false ]
 
-shibboleth_debug: false
+shibbolethsp_debug: false
 
-# shibd.logger will  be modified is shibboleth_debug is true
-shibboleth_rootcategory: "{% if shibboleth_debug == true %}DEBUG, shibd_log, warn_log{% else %}INFO, shibd_log, warn_log{% endif %}"
-shibboleth_propertyset: "{% if shibboleth_debug == true %}DEBUG{% else %}INFO{% endif %}"
-shibboleth_messagedecoder: "{% if shibboleth_debug == true %}DEBUG{% else %}WARN{% endif %}"
-shibboleth_messageencoder: "{% if shibboleth_debug == true %}DEBUG{% else %}WARN{% endif %}"
-shibboleth_debugger: "{% if shibboleth_debug == true %}DEBUG, sig_log{% else %}INFO, sig_log{% endif %}"
+# shibd.logger will  be modified is shibbolethsp_debug is true
+shibbolethsp_rootcategory: "{% if shibbolethsp_debug == true %}DEBUG, shibd_log, warn_log{% else %}INFO, shibd_log, warn_log{% endif %}"
+shibbolethsp_propertyset: "{% if shibbolethsp_debug == true %}DEBUG{% else %}INFO{% endif %}"
+shibbolethsp_messagedecoder: "{% if shibbolethsp_debug == true %}DEBUG{% else %}WARN{% endif %}"
+shibbolethsp_messageencoder: "{% if shibbolethsp_debug == true %}DEBUG{% else %}WARN{% endif %}"
+shibbolethsp_debugger: "{% if shibbolethsp_debug == true %}DEBUG, sig_log{% else %}INFO, sig_log{% endif %}"
 
 # shibboleth2.xml hardening options
-shibboleth_signing: front
-shibboleth_encryption: false
-shibboleth_handlerssl: true
-shibboleth_redirectLimit: exact
-shibboleth_cookieprops: https
+shibbolethsp_signing: front
+shibbolethsp_encryption: false
+shibbolethsp_handlerssl: true
+shibbolethsp_redirectLimit: exact
+shibbolethsp_cookieprops: https
 
 
 

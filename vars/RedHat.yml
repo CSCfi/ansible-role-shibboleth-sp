@@ -1,7 +1,7 @@
 ---
-__shibboleth_packages:
+__shibbolethsp_packages:
   - httpd
   - shibboleth
   - python-lxml
 
-shibboleth_service_name: shibd
+shibbolethsp_service_name: shibd
