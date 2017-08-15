@@ -74,5 +74,8 @@
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions", attribute: handlerSSL, value: "{{ shibbolethsp_handlerssl | lower }}", ensure: present }
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions", attribute: redirectLimit, value: "{{ shibbolethsp_redirectLimit }}", ensure: present }
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions", attribute: cookieProps, value: "{{ shibbolethsp_cookieprops }}", ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions/x:SSO", attribute: "entityID", ensure: absent }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions/x:SSO", attribute: "discoveryURL", ensure: absent }
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions/x:SSO", attribute: NULL, value: SAML2, ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions/x:SSO", attribute: "{{ shibbolethsp_ssomethod }}", value: "{{ shibbolethsp_ssourl }}", ensure: present }
   notify: restart shibboleth-sp
