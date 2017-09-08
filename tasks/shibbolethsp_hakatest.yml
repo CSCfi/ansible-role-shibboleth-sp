@@ -1,0 +1,13 @@
+- name: Add Haka-metadata provider (Haka-test)
+  blockinfile:
+    dest: /etc/shibboleth/shibboleth2.xml
+    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
+    content: |
+      <MetadataProvider type="XML" uri="https://haka.funet.fi/metadata/haka_test_metadata_signed.xml" backingFilePath="haka-test-metadata.xml" reloadInterval="3600">
+        <SignatureMetadataFilter certificate="/etc/pki/tls/certs/{{ shibbolethsp_hakatestcrt | basename }}"/>
+        <MetadataFilter type="RequireValidUntil" maxValidityInterval="2592000"/>
+      </MetadataProvider>
+   
+- name: Download certificate (Haka-test)
+  get_url: url={{ shibbolethsp_hakatestcrt }} dest=/etc/pki/tls/certs/{{ shibbolethsp_hakatestcrt | basename }} mode=0755
