@@ -20,16 +20,19 @@
 
 - name: Shibboleth SP | Certificates | SAML | Configure | shibboleth2.xml
   xml:
-    xpath: "{{item.xpath}}"
-    attribute: "{{item.attribute}}"
-    value: "{{item.value}}"
-    ensure: "{{item.ensure}}"
+    xpath: "{{ shibbolethsp_item.xpath }}"
+    attribute: "{{ shibbolethsp_item.attribute }}"
+    value: "{{ shibbolethsp_item.value }}"
+    ensure: "{{ shibbolethsp_item.ensure }}"
     file: "/etc/shibboleth/shibboleth2.xml"
     namespaces:
       x: urn:mace:shibboleth:2.0:native:sp:config
   with_items:
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver", attribute: key, value: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.key", ensure: present }
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver", attribute: certificate, value: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.crt", ensure: present }
+  loop_control:
+    loop_var: shibbolethsp_item
+
   notify: restart shibboleth-sp
   when:
     - ( shibbolethsp_saml_crt != "not_set_yet" )
