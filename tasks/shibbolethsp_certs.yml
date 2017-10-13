@@ -3,7 +3,7 @@
     content: "{{ shibbolethsp_saml_key }}"
     dest: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.key"
     group: shibd
-    owner: jetty
+    owner: shibd
     mode: 0440
   when:
     - ( shibbolethsp_saml_key != "not_set_yet" )
@@ -13,7 +13,7 @@
     content: "{{ shibbolethsp_saml_crt }}"
     dest: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.crt"
     group: shibd
-    owner: jetty
+    owner: shibd
     mode: 0444
   when:
     - ( shibbolethsp_saml_crt != "not_set_yet" )
