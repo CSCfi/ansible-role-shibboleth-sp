@@ -30,6 +30,6 @@ shibbolethsp_cookieprops: https
 ### Haka-test
 shibbolethsp_hakatestcrt: "https://wiki.eduuni.fi/download/attachments/27297785/haka_testi_2015_sha2.crt"
 ### Haka
-shibbolethsp_hakacrt: "https://wiki.eduuni.fi/download/attachments/27297775/haka-sign-v3.pem"
+shibbolethsp_hakacrt: "https://wiki.eduuni.fi/download/attachments/27297775/haka-sign-v4.pem"
 ### Edugain
 shibbolethsp_edugaincrt: "https://wiki.eduuni.fi/download/attachments/27297885/haka-edugain-sign.csc.fi.pem"
