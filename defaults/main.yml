@@ -10,7 +10,7 @@ shibbolethsp_ssourl: "{{ ssourl | default('https://testsp.funet.fi/shibboleth/WA
 shibbolethsp_ssomethod: "{{ ssomethod | default('discoveryURL') }}" # [ entityID / discoveryURL ]
 # shibbolethsp_debug [ true / false ]
 
-shibbolethsp_debug: "{{ shibbolethsp_debug | lower | default('false') }}"
+shibbolethsp_debug: false
 
 # shibd.logger will  be modified is shibbolethsp_debug is true
 shibbolethsp_rootcategory: "{% if shibbolethsp_debug == true or shibbolethsp_debug == True %}DEBUG, shibd_log, warn_log{% else %}INFO, shibd_log, warn_log{% endif %}"
