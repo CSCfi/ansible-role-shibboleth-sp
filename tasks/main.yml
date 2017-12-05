@@ -41,7 +41,7 @@
   xml:
     xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions/x:Handler[@type='Session']"
     attribute: showAttributeValues
-    value: "{{ shibbolethsp_debug }}"
+    value: "{{ shibbolethsp_debug | lower }}"
     ensure: present
     file: /etc/shibboleth/shibboleth2.xml
     namespaces:
