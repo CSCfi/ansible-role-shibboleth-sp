@@ -13,11 +13,11 @@ shibbolethsp_ssomethod: "{{ ssomethod | default('discoveryURL') }}" # [ entityID
 shibbolethsp_debug: "{{ shibbolethsp_debug | lower | default('false') }}"
 
 # shibd.logger will  be modified is shibbolethsp_debug is true
-shibbolethsp_rootcategory: "{% if shibbolethsp_debug == true %}DEBUG, shibd_log, warn_log{% else %}INFO, shibd_log, warn_log{% endif %}"
-shibbolethsp_propertyset: "{% if shibbolethsp_debug == true %}DEBUG{% else %}INFO{% endif %}"
-shibbolethsp_messagedecoder: "{% if shibbolethsp_debug == true %}DEBUG{% else %}WARN{% endif %}"
-shibbolethsp_messageencoder: "{% if shibbolethsp_debug == true %}DEBUG{% else %}WARN{% endif %}"
-shibbolethsp_debugger: "{% if shibbolethsp_debug == true %}DEBUG, sig_log{% else %}INFO, sig_log{% endif %}"
+shibbolethsp_rootcategory: "{% if shibbolethsp_debug == true or shibbolethsp_debug == True %}DEBUG, shibd_log, warn_log{% else %}INFO, shibd_log, warn_log{% endif %}"
+shibbolethsp_propertyset: "{% if shibbolethsp_debug == true or shibbolethsp_debug == True  %}DEBUG{% else %}INFO{% endif %}"
+shibbolethsp_messagedecoder: "{% if shibbolethsp_debug == true or shibbolethsp_debug == True  %}DEBUG{% else %}WARN{% endif %}"
+shibbolethsp_messageencoder: "{% if shibbolethsp_debug == true or shibbolethsp_debug == True  %}DEBUG{% else %}WARN{% endif %}"
+shibbolethsp_debugger: "{% if shibbolethsp_debug == true or shibbolethsp_debug == True  %}DEBUG, sig_log{% else %}INFO, sig_log{% endif %}"
 
 # shibboleth2.xml hardening options
 shibbolethsp_signing: front
