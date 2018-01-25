@@ -5,6 +5,11 @@ Ansible-Role: Shibboleth SP
 
 An role which installs Shibboleth SP on RedHat/Debian servers.
 
+Disclaimer
+---
+
+This is an example of a role to deploy SAML Service Provider to e.g. Haka user authentication federation. The deployer is responsible for making sure that the end result complies with requirements in each federation. Authors of the role don't take a stand on whether the end result is compliant or not.
+
 Requirements
 ------------
 
