@@ -35,6 +35,9 @@
 
     <!-- A persistent id attribute that supports personalized anonymous access. -->
     
+    <Attribute name="urn:mace:dir:attribute-def:eduPersonAssurance" id="Assurance"/>
+    <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.1.1.11" id="Assurance"/>
+
     <!-- First, the deprecated/incorrect version, decoded as a scoped string: -->
     <Attribute name="urn:mace:dir:attribute-def:eduPersonTargetedID" id="targeted-id">
         <AttributeDecoder xsi:type="ScopedAttributeDecoder"/> 
