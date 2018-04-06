@@ -1,0 +1,13 @@
+- name: Add Virtu-metadata provider (Virtu-test)
+  blockinfile:
+    dest: /etc/shibboleth/shibboleth2.xml
+    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
+    content: |
+      <MetadataProvider type="XML" uri="https://virtu-ds.csc.fi/fed/virtu-test/CSC_Virtu_Test_Servers-metadata.xml" backingFilePath="virtu-test-metadata.xml" reloadInterval="3600">
+        <SignatureMetadataFilter certificate="/etc/pki/tls/certs/{{ shibbolethsp_virtutestcrt | basename }}"/>
+        <MetadataFilter type="RequireValidUntil" maxValidityInterval="2592000"/>
+      </MetadataProvider>
+   
+- name: Download certificate (Haka-test)
+  get_url: url={{ shibbolethsp_virtutestcrt }} dest=/etc/pki/tls/certs/{{ shibbolethsp_virtutestcrt | basename }} mode=0755
