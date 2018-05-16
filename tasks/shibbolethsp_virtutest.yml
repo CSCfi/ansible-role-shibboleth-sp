@@ -1,7 +1,7 @@
 - name: Add Virtu-metadata provider (Virtu-test)
   blockinfile:
     dest: /etc/shibboleth/shibboleth2.xml
-    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    marker: "<!-- {mark} ANSIBLE MANAGED Virtutestmetadata BLOCK -->"
     insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
     content: |
       <MetadataProvider type="XML" uri="https://virtu-ds.csc.fi/fed/virtu-test/CSC_Virtu_Test_Servers-metadata.xml" backingFilePath="virtu-test-metadata.xml" reloadInterval="3600">

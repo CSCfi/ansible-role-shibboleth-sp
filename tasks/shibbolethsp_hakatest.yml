@@ -1,7 +1,7 @@
 - name: Add Haka-metadata provider (Haka-test)
   blockinfile:
     dest: /etc/shibboleth/shibboleth2.xml
-    marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+    marker: "<!-- {mark} ANSIBLE MANAGED Hakatestmetadata BLOCK -->"
     insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
     content: |
       <MetadataProvider type="XML" uri="https://haka.funet.fi/metadata/haka_test_metadata_signed.xml" backingFilePath="haka-test-metadata.xml" reloadInterval="3600">
