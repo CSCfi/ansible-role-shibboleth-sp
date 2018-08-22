@@ -26,7 +26,7 @@
     ensure: "{{ shibbolethsp_item.ensure }}"
     file: "/etc/shibboleth/shibboleth2.xml"
     namespaces:
-      x: urn:mace:shibboleth:2.0:native:sp:config
+      x: urn:mace:shibboleth:3.0:native:sp:config
   with_items:
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver", attribute: key, value: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.key", ensure: present }
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver", attribute: certificate, value: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.crt", ensure: present }
