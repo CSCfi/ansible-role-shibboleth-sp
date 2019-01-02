@@ -9,5 +9,5 @@
         <MetadataFilter type="RequireValidUntil" maxValidityInterval="2592000"/>
       </MetadataProvider>
    
-- name: Download certificate (Haka-test)
+- name: Download certificate (Virtu-test)
   get_url: url={{ shibbolethsp_virtutestcrt }} dest=/etc/pki/tls/certs/{{ shibbolethsp_virtutestcrt | basename }} mode=0755
