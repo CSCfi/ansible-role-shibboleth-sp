@@ -28,8 +28,10 @@ shibbolethsp_cookieprops: https
 
 # CONFIGURABLES
 ### Haka-test
+shibbolethsp_hakatestmd: "https://haka.funet.fi/metadata/haka_test_metadata_signed.xml"
 shibbolethsp_hakatestcrt: "https://wiki.eduuni.fi/download/attachments/27297785/haka_testi_2015_sha2.crt"
 ### Haka
+shibbolethsp_hakamd: "https://haka.funet.fi/metadata/haka-metadata.xml"
 shibbolethsp_hakacrt: "https://wiki.eduuni.fi/download/attachments/27297775/haka-sign-v4.pem"
 ### Edugain
 shibbolethsp_edugaincrt: "https://wiki.eduuni.fi/download/attachments/27297747/haka-edugain-sign.csc.fi.2017.pem"
@@ -37,4 +39,5 @@ shibbolethsp_edugaincrt: "https://wiki.eduuni.fi/download/attachments/27297747/h
 shibbolethsp_virtumd: "https://virtu-ds.csc.fi/fed/virtu/virtu-metadata-v4.xml"
 shibbolethsp_virtucrt: "https://wiki.eduuni.fi/download/attachments/28345571/virtu-metadata-signing-crt-2017.pem"
 ### Virtu-test
+shibbolethsp_virtutestmd: "https://virtu-ds.csc.fi/fed/virtu-test/CSC_Virtu_Test_Servers-metadata.xml"
 shibbolethsp_virtutestcrt: "https://industria.csc.fi/virtus.2015.crt.pem"

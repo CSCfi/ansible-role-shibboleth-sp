@@ -32,7 +32,6 @@
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver", attribute: certificate, value: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.crt", ensure: present }
   loop_control:
     loop_var: shibbolethsp_item
-
   notify: restart shibboleth-sp
   when:
     - ( shibbolethsp_saml_crt != "not_set_yet" )

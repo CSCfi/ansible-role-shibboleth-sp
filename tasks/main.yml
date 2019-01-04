@@ -80,6 +80,7 @@
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions/x:SSO", attribute: "{{ shibbolethsp_ssomethod }}", value: "{{ shibbolethsp_ssourl }}", ensure: present }
   notify: restart shibboleth-sp
 
-- include: shibbolethsp_{{ item }}.yml
+- name: Shibboleth SP | Configurables 
+  include: shibbolethsp_{{ item }}.yml
   with_items: "{{ configurables }}"
   when: configurables is defined
