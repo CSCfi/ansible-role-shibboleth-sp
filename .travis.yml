@@ -17,6 +17,7 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
   - sudo add-apt-repository "deb [arch=amd64] http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main"
+  - sudo apt-get update -qq
   - sudo apt-get install ansible
   # Pull container
   - sudo docker pull ${distribution}:${version}
@@ -26,7 +27,8 @@ before_install:
 install:
   - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
   - sudo add-apt-repository "deb [arch=amd64] http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main"
-  - sudo apt-get install ansible
+  - sudo apt-get update -qq
+  - sudo apt-get install ansible -y
   - ansible --version
 
 script:
