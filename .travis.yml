@@ -14,13 +14,16 @@ env:
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
 
 before_install:
-  - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
-  - sudo add-apt-repository "deb [arch=amd64] http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main"
-  - sudo apt-get update
+  - sudo apt-get update -qq
   # Pull container
   - sudo docker pull ${distribution}:${version}
   # Customize container
   - sudo docker build --rm=true --file=tests/dockerfile.${distribution} --tag=${distribution}:ansible tests
+
+install:
+  - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+  - sudo add-apt-repository "deb [arch=amd64] http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main"
+  - sudo apt-get update
 
 script:
   # Run container in detached state
