@@ -9,12 +9,15 @@ env:
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
   - container_id: $(mktemp)
     distribution: debian
-    version: 8
+    version: 9
     init: /lib/systemd/systemd
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
 
 before_install:
   - sudo apt-get update -qq
+  - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+  - sudo add-apt-repository "deb [arch=amd64] http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main"
+  - sudo apt-get install ansible
   # Pull container
   - sudo docker pull ${distribution}:${version}
   # Customize container
