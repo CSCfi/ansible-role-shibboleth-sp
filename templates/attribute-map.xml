@@ -233,12 +233,27 @@
     <Attribute name="urn:mace:funet.fi:attribute-def:funetEduPersonLearnerId" id="funetEduPersonLearnerId"/>
     <Attribute name="urn:oid:1.3.6.1.4.1.16161.1.1.27" id="funetEduPersonLearnerId"/>
 
-
-
     <Attribute name="electronicIdentificationNumber" id="electronicIdentificationNumber"/>
     <Attribute name="urn:oid:1.2.246.22" id="electronicIdentificationNumber"/>
 
     <Attribute name="nationalIdentificationNumber" id="nationalIdentificationNumber"/>
     <Attribute name="urn:oid:1.2.246.21" id="nationalIdentificationNumber"/>
+
+    <!-- eIDAS attributes -->
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier" id="Shib_eidasPersonIdentifier"/>
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName" id="Shib_eidasCurrentFamilyName"/>
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName" id="Shib_eidasCurrentGivenName"/>
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/DateOfBirth" id="Shib_eidasDateOfBirth"/>
+
+    <!-- Virtu attributes -->
+    <Attribute name="urn:oid:1.3.6.1.4.1.31350.1.4" id="virtuPersonEntitlement"/>
+    <Attribute name="urn:oid:1.3.6.1.4.1.31350.1.5" id="virtuHomeOrganization"/>
+    <Attribute name="urn:oid:1.3.6.1.4.1.31350.1.6" id="virtuEmployeeType"/>
+    <Attribute name="urn:oid:1.3.6.1.4.1.31350.1.7" id="virtuHomeOrganizationType"/>
+    <Attribute name="urn:oid:1.3.6.1.4.1.31350.1.8" id="virtuLocalID"/>
+    <Attribute name="urn:oid:1.3.6.1.4.1.31350.1.9" id="virtuFreshAuthentication"/>
+    <Attribute name="urn:oid:1.2.246.10" id="businessCode"/>
+    <Attribute name="urn:oid:2.16.840.1.113730.3.1.39" id="preferredLanguage"/>
+    <Attribute name="urn:oid:2.16.840.1.113730.3.1.3" id="employeeNumber"/>
 
 </Attributes>
