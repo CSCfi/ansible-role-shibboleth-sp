@@ -29,7 +29,7 @@ shibbolethsp_cookieprops: https
 # CONFIGURABLES
 ### Haka-test
 shibbolethsp_hakatestmd: "https://haka.funet.fi/metadata/haka_test_metadata_signed.xml"
-shibbolethsp_hakatestcrt: "https://wiki.eduuni.fi/download/attachments/27297785/haka_testi_2015_sha2.crt"
+shibbolethsp_hakatestcrt: "https://wiki.eduuni.fi/download/attachments/27297785/haka_testi_2018_sha2.crt"
 ### Haka
 shibbolethsp_hakamd: "https://haka.funet.fi/metadata/haka-metadata.xml"
 shibbolethsp_hakacrt: "https://wiki.eduuni.fi/download/attachments/27297775/haka-sign-v4.pem"
