@@ -1,13 +1,13 @@
 - name: Shibboleth SP | Metadata | Haka-test | Configure
   blockinfile:
     dest: /etc/shibboleth/shibboleth2.xml
-    marker: "<!-- {mark} Ansible managed - Haka-test metadata -->"
+    marker: "        <!-- {mark} Ansible managed - Haka-test metadata -->"
     insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
-    content: |
-      <MetadataProvider type="XML" url="{{ shibbolethsp_hakatestmd }}" backingFilePath="{{ shibbolethsp_hakatestmd | basename }}" reloadInterval="3600">
-        <MetadataFilter type="Signature" certificate="/etc/pki/tls/certs/{{ shibbolethsp_hakatestcrt | basename }}"/>
-        <MetadataFilter type="RequireValidUntil" maxValidityInterval="2592000"/>
-      </MetadataProvider>
+    content: |2
+              <MetadataProvider type="XML" url="{{ shibbolethsp_hakatestmd }}" backingFilePath="{{ shibbolethsp_hakatestmd | basename }}" reloadInterval="3600">
+                <MetadataFilter type="Signature" certificate="/etc/pki/tls/certs/{{ shibbolethsp_hakatestcrt | basename }}"/>
+                <MetadataFilter type="RequireValidUntil" maxValidityInterval="2592000"/>
+              </MetadataProvider>
    
 - name: Shibboleth SP | Metadata | Haka-test | Download | Certificate
   get_url: url={{ shibbolethsp_hakatestcrt }} dest=/etc/pki/tls/certs/{{ shibbolethsp_hakatestcrt | basename }} mode=0755

@@ -1,13 +1,13 @@
 - name: Shibboleth SP | Metadata | Virtu | Configure
   blockinfile:
     dest: /etc/shibboleth/shibboleth2.xml
-    marker: "<!-- {mark} Ansible managed - Virtu metadata -->"
+    marker: "        <!-- {mark} Ansible managed - Virtu metadata -->"
     insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
-    content: |
-      <MetadataProvider type="XML" url="{{ shibbolethsp_virtumd }}" backingFilePath="{{ shibbolethsp_virtumd | basename }}" reloadInterval="3600">
-        <MetadataFilter type="signature" certificate="/etc/pki/tls/certs/{{ shibbolethsp_virtucrt | basename }}"/>
-        <MetadataFilter type="RequireValidUntil" maxValidityInterval="2592000"/>
-      </MetadataProvider>
+    content: |2
+              <MetadataProvider type="XML" url="{{ shibbolethsp_virtumd }}" backingFilePath="{{ shibbolethsp_virtumd | basename }}" reloadInterval="3600">
+                <MetadataFilter type="signature" certificate="/etc/pki/tls/certs/{{ shibbolethsp_virtucrt | basename }}"/>
+                <MetadataFilter type="RequireValidUntil" maxValidityInterval="2592000"/>
+              </MetadataProvider>
    
 - name: Shibboleth SP | Metadata | Virtu | Download | Certificate
   get_url: url={{ shibbolethsp_virtucrt }} dest=/etc/pki/tls/certs/{{ shibbolethsp_virtucrt | basename }} mode=0755
