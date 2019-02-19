@@ -5,7 +5,7 @@
     insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
     content: |2
               <MetadataProvider type="XML" url="{{ shibbolethsp_virtumd }}" backingFilePath="{{ shibbolethsp_virtumd | basename }}" reloadInterval="3600">
-                <MetadataFilter type="signature" certificate="/etc/pki/tls/certs/{{ shibbolethsp_virtucrt | basename }}"/>
+                <MetadataFilter type="Signature" certificate="/etc/pki/tls/certs/{{ shibbolethsp_virtucrt | basename }}"/>
                 <MetadataFilter type="RequireValidUntil" maxValidityInterval="2592000"/>
               </MetadataProvider>
    
