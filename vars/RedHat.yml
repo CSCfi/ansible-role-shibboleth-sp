@@ -3,5 +3,3 @@ __shibbolethsp_packages:
   - httpd
   - shibboleth
   - python-lxml
-
-shibbolethsp_service_name: shibd
