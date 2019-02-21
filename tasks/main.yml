@@ -83,4 +83,4 @@
 - name: Shibboleth SP | Configurables 
   include: shibbolethsp_{{ item }}.yml
   with_items: "{{ configurables }}"
-  when: configurables is defined
+  when: configurables is defined and configurables!=""
