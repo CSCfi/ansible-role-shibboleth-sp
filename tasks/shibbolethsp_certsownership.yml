@@ -1,0 +1,17 @@
+- name: Shibboleth-SP | find | privatekeys
+  find:
+    paths: /etc/pki/tls/private
+    patterns: "{{ shibbolethsp_fqdn }}*.key"
+  register: wildcard_files_to_delete
+
+- name: Shibboleth-SP | add | owner | privatekey
+  acl:
+    path: "{{ shibbolethsp_item.path }}"
+    entity: "{{ shibbolethsp_service_name }}"
+    etype: user
+    permissions: r
+    state: present
+  with_items: "{{ wildcard_files_to_delete.files }}"
+  loop_control:
+    loop_var: shibbolethsp_item
+  notify: restart shibboleth-sp
