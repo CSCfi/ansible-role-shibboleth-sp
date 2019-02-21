@@ -2,18 +2,20 @@
   copy:
     content: "{{ shibbolethsp_saml_key }}"
     dest: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.key"
-    group: shibd
-    owner: shibd
+    group: root
+    owner: root
     mode: 0440
   when:
     - ( shibbolethsp_saml_key != "not_set_yet" )
+  notify:
+    - reown privatekeys-sp
 
 - name: Shibboleth SP | Certificates | SAML | Insert | /etc/pki/tls/certs
   copy:
     content: "{{ shibbolethsp_saml_crt }}"
     dest: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.crt"
-    group: shibd
-    owner: shibd
+    group: root
+    owner: root
     mode: 0444
   when:
     - ( shibbolethsp_saml_crt != "not_set_yet" )
