@@ -20,6 +20,30 @@
   when:
     - ( shibbolethsp_saml_crt != "not_set_yet" )
 
+- name: Shibboleth SP | Certificates | Virtu | SAML | Insert | /etc/pki/tls/private
+  copy:
+    content: "{{ shibbolethsp_samlvirtu_key }}"
+    dest: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.virtu.key"
+    group: root
+    owner: root
+    mode: 0440
+  when:
+    - ( shibbolethsp_samlvirtu_key != "not_set_yet" )
+    - ( "'virtu' in configurables" )
+  notify:
+    - reown privatekeys-sp
+
+- name: Shibboleth SP | Certificates | Virtu | SAML | Insert | /etc/pki/tls/certs
+  copy:
+    content: "{{ shibbolethsp_samlvirtu_crt }}"
+    dest: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.virtu.crt"
+    group: root
+    owner: root
+    mode: 0444
+  when:
+    - ( shibbolethsp_samlvirtu_crt != "not_set_yet" )
+    - ( "'virtu' in configurables" )
+
 - name: Shibboleth SP | Certificates | SAML | Configure | shibboleth2.xml
   xml:
     xpath: "{{ shibbolethsp_item.xpath }}"
