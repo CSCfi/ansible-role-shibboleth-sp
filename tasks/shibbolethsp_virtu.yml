@@ -15,19 +15,15 @@
 - name: Shibboleth SP | Metadata | Virtu | Configure | Certs start
   blockinfile:
     dest: /etc/shibboleth/shibboleth2.xml
-    marker: "        <!-- {mark} Ansible managed - Virtu keys chaining start-->"
-    insertafter: "<!-- Simple file-based resolvers for separate signing/encryption keys. -->"
+    marker: "        <!-- {mark} Ansible managed - Virtu keys mapping-->"
+    insertbefore: "<!-- Simple file-based resolvers for separate signing/encryption keys. -->"
     content: |2
             <RelyingParty Name="virtu" keyName="vrk-cert"/>
-            <CredentialResolver type="Chaining">
-            <CredentialResolver type="File" key="/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.virtu.key" certificate="/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.virtu.crt" keyName="vrk-cert"/>
 
-- name: Shibboleth SP | Metadata | Virtu | Configure | Certs end
+- name: Shibboleth SP | Metadata | Virtu | Configure | Certs start
   blockinfile:
     dest: /etc/shibboleth/shibboleth2.xml
-    marker: "        <!-- {mark} Ansible managed - Virtu keys chaininig end -->"
-    insertbefore: "</ApplicationDefaults>"
+    marker: "        <!-- {mark} Ansible managed - Virtu keys-->"
+    insertbefore: "</CredentialResolver>"
     content: |2
-            </CredentialResolver>
-
-
+              <CredentialResolver type="File" key="/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.virtu.key" certificate="/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.virtu.crt" keyName="vrk-cert"/>

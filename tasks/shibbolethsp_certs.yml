@@ -54,8 +54,8 @@
     namespaces:
       x: urn:mace:shibboleth:3.0:native:sp:config
   with_items:
-    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver", attribute: key, value: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.key", ensure: present }
-    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver", attribute: certificate, value: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.crt", ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver/x:CredentialResolver", attribute: key, value: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.key", ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver/x:CredentialResolver", attribute: certificate, value: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.crt", ensure: present }
   loop_control:
     loop_var: shibbolethsp_item
   notify: restart shibboleth-sp
