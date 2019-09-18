@@ -80,6 +80,25 @@
     - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:Sessions/x:SSO", attribute: "{{ shibbolethsp_ssomethod }}", value: "{{ shibbolethsp_ssourl }}", ensure: present }
   notify: restart shibboleth-sp
 
+- name: Shibboleth SP | Remove | CredentialResolver
+  xml:
+    xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver"
+    state: "absent"
+    file: "/etc/shibboleth/shibboleth2.xml"
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+
+- name: Shibboleth SP | Add | CredentialResolver  | /etc/shibboleth/shibboleth2.xml
+  blockinfile:
+    dest: "/etc/shibboleth/shibboleth2.xml"
+    marker: "        <!-- {mark} ansible managed - CredentialResolver  -->"
+    insertbefore: "</ApplicationDefaults>"
+    block: |2
+              <CredentialResolver type="Chaining">
+                <CredentialResolver type="File" use="signing" key="/etc/shibboleth/sp-signing-key.pem" certificate="/etc/shibboleth/sp-signing-cert.pem"/>
+                <CredentialResolver type="File" use="encryption" key="/etc/shibboleth/sp-encrypt-key.pem" certificate="/etc/shibboleth/sp-encrypt-cert.pem"/>
+              </CredentialResolver>
+
 - name: Shibboleth SP | Configurables 
   include: shibbolethsp_{{ item }}.yml
   with_items: "{{ configurables }}"

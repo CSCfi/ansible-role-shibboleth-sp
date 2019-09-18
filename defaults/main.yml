@@ -3,6 +3,8 @@
 
 shibbolethsp_saml_key: "{{ vault_saml_key | default('not_set_yet') }}"
 shibbolethsp_saml_crt: "{{ vault_saml_crt | default('not_set_yet') }}"
+shibbolethsp_samlvirtu_key: "{{ vault_samlvirtu_key | default('not_set_yet') }}"
+shibbolethsp_samlvirtu_crt: "{{ vault_samlvirtu_crt | default('not_set_yet') }}"
 shibbolethsp_state: latest
 shibbolethsp_fqdn: "{{ ansible_fqdn }}"
 shibbolethsp_entityid: https://{{ shibbolethsp_fqdn }}/shibboleth
@@ -37,8 +39,8 @@ shibbolethsp_hakacrt: "https://wiki.eduuni.fi/download/attachments/27297775/haka
 ### Edugain
 shibbolethsp_edugaincrt: "https://wiki.eduuni.fi/download/attachments/27297747/haka-edugain-sign.csc.fi.2017.pem"
 ### Virtu
-shibbolethsp_virtumd: "https://virtu-ds.csc.fi/fed/virtu/virtu-metadata-v4.xml"
-shibbolethsp_virtucrt: "https://wiki.eduuni.fi/download/attachments/28345571/virtu-metadata-signing-crt-2017.pem"
+shibbolethsp_virtumd: "https://virtu-ds.csc.fi/fed/virtu/virtu-metadata-v5.xml"
+shibbolethsp_virtucrt: "https://wiki.eduuni.fi/download/attachments/28345571/virtu-metadata-signing-crt-2019.pem"
 ### Virtu-test
 shibbolethsp_virtutestmd: "https://virtu-ds.csc.fi/fed/virtu-test/CSC_Virtu_Test_Servers-metadata.xml"
 shibbolethsp_virtutestcrt: "https://industria.csc.fi/virtus.2015.crt.pem"

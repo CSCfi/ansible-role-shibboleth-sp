@@ -20,6 +20,30 @@
   when:
     - ( shibbolethsp_saml_crt != "not_set_yet" )
 
+- name: Shibboleth SP | Certificates | Virtu | SAML | Insert | /etc/pki/tls/private
+  copy:
+    content: "{{ shibbolethsp_samlvirtu_key }}"
+    dest: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.virtu.key"
+    group: root
+    owner: root
+    mode: 0440
+  when:
+    - ( shibbolethsp_samlvirtu_key != "not_set_yet" )
+    - ( "'virtu' in configurables" )
+  notify:
+    - reown privatekeys-sp
+
+- name: Shibboleth SP | Certificates | Virtu | SAML | Insert | /etc/pki/tls/certs
+  copy:
+    content: "{{ shibbolethsp_samlvirtu_crt }}"
+    dest: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.virtu.crt"
+    group: root
+    owner: root
+    mode: 0444
+  when:
+    - ( shibbolethsp_samlvirtu_crt != "not_set_yet" )
+    - ( "'virtu' in configurables" )
+
 - name: Shibboleth SP | Certificates | SAML | Configure | shibboleth2.xml
   xml:
     xpath: "{{ shibbolethsp_item.xpath }}"
@@ -30,8 +54,8 @@
     namespaces:
       x: urn:mace:shibboleth:3.0:native:sp:config
   with_items:
-    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver", attribute: key, value: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.key", ensure: present }
-    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver", attribute: certificate, value: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.crt", ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver/x:CredentialResolver", attribute: key, value: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.key", ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver/x:CredentialResolver", attribute: certificate, value: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.crt", ensure: present }
   loop_control:
     loop_var: shibbolethsp_item
   notify: restart shibboleth-sp

@@ -11,3 +11,18 @@
    
 - name: Shibboleth SP | Metadata | Virtu-test | Download | Certificate
   get_url: url={{ shibbolethsp_virtutestcrt }} dest=/etc/pki/tls/certs/{{ shibbolethsp_virtutestcrt | basename }} mode=0755
+
+- name: Shibboleth SP | Metadata | Virtu-test | Configure | Certs start
+  blockinfile:
+    dest: /etc/shibboleth/shibboleth2.xml
+    marker: "        <!-- {mark} Ansible managed - Virtu-test keys mapping-->"
+    insertbefore: "<!-- Simple file-based resolvers for separate signing/encryption keys. -->"
+    content: |2
+            <RelyingParty Name="CSC Virtu Test Servers" keyName="vrk-cert"/>
+- name: Shibboleth SP | Metadata | Virtu | Configure | Certs start
+  blockinfile:
+    dest: /etc/shibboleth/shibboleth2.xml
+    marker: "        <!-- {mark} Ansible managed - Virtu keys-->"
+    insertbefore: "</CredentialResolver>"
+    content: |2
+              <CredentialResolver type="File" key="/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.virtu.key" certificate="/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.virtu.crt" keyName="vrk-cert"/>
