@@ -255,5 +255,18 @@
     <Attribute name="urn:oid:1.2.246.10" id="businessCode"/>
     <Attribute name="urn:oid:2.16.840.1.113730.3.1.39" id="preferredLanguage"/>
     <Attribute name="urn:oid:2.16.840.1.113730.3.1.3" id="employeeNumber"/>
+    
+    <!-- MPASSid attributes -->
+    <Attribute name="urn:mpass.id:uid" id="mpassUid"/>
+    <Attribute name="urn:mpass.id:legacyCryptId" id="mpassLegacyCryptId"/>
+    <Attribute name="urn:mpass.id:legacyCryptIde" id="mpassLegacyCryptIde"/>
+    <Attribute name="urn:mpass.id:municipalityCode" id="mpassMunicipalityCode"/>
+    <Attribute name="urn:mpass.id:municipality" id="mpassMunicipality"/>
+    <Attribute name="urn:mpass.id:schoolCode" id="mpassSchoolCode"/>
+    <Attribute name="urn:mpass.id:school" id="mpassSchool"/>
+    <Attribute name="urn:mpass.id:class" id="mpassClass"/>
+    <Attribute name="urn:mpass.id:classLevel" id="mpassClassLevel"/>
+    <Attribute name="urn:mpass.id:role " id="mpassRole"/>
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName " id="eidasCurrentGivenName"/>
 
 </Attributes>
