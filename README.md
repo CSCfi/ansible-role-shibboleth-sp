@@ -13,7 +13,6 @@ This is an example of a role to deploy SAML Service Provider to e.g. Haka user a
 Requirements
 ------------
 
-* cmprescott.xml ( Mandatory )
 * CSCfi.apache ( Optional but suggested )
 
 This Role installs shibboleth-sp if not already installed and configures some defaults options. Also Debug can be switched [On/Off].
