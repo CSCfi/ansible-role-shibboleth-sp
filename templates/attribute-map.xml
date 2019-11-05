@@ -266,7 +266,7 @@
     <Attribute name="urn:mpass.id:school" id="mpassSchool"/>
     <Attribute name="urn:mpass.id:class" id="mpassClass"/>
     <Attribute name="urn:mpass.id:classLevel" id="mpassClassLevel"/>
-    <Attribute name="urn:mpass.id:role " id="mpassRole"/>
-    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName " id="eidasCurrentGivenName"/>
+    <Attribute name="urn:mpass.id:role" id="mpassRole"/>
+    <Attribute name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName" id="eidasCurrentGivenName"/>
 
 </Attributes>

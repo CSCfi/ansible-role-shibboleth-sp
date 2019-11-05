@@ -1,0 +1,10 @@
+- name: Shibboleth SP | Metadata | ElixirAAI | Configure
+  blockinfile:
+    dest: /etc/shibboleth/shibboleth2.xml
+    marker: "        <!-- {mark} Ansible managed - ElixirAAI metadata -->"
+    insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
+    content: |2
+              <MetadataProvider type="XML" url="{{ shibbolethsp_elixiraaimd }}" backingFilePath="{{ shibbolethsp_elixiraaimd | basename }}" reloadInterval="3600">
+              </MetadataProvider>
+   
+

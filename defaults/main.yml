@@ -46,4 +46,7 @@ shibbolethsp_virtutestmd: "https://virtu-ds.csc.fi/fed/virtu-test/CSC_Virtu_Test
 shibbolethsp_virtutestcrt: "https://industria.csc.fi/virtus.2015.crt.pem"
 ### MPASSid-test
 shibbolethsp_mpassidtestmd: "https://mpass-proxy-test.csc.fi/idp/shibboleth"
-
+### MPASSid
+shibbolethsp_mpassidmd: "https://mpass-proxy.csc.fi/idp/shibboleth"
+### ElixirAAI
+shibbolethsp_elixiraaimd: "https://login.elixir-czech.org/proxy/saml2/idp/metadata.php"

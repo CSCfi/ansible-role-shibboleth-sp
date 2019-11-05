@@ -1,0 +1,10 @@
+- name: Shibboleth SP | Metadata | MPASSid | Configure
+  blockinfile:
+    dest: /etc/shibboleth/shibboleth2.xml
+    marker: "        <!-- {mark} Ansible managed - MPASSid metadata -->"
+    insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
+    content: |2
+              <MetadataProvider type="XML" url="{{ shibbolethsp_mpassidmd }}" backingFilePath="{{ shibbolethsp_mpassidmd | basename }}" reloadInterval="3600">
+              </MetadataProvider>
+   
+
