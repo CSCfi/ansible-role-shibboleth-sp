@@ -52,3 +52,5 @@ shibbolethsp_mpassidtestmd: "https://mpass-proxy-test.csc.fi/idp/shibboleth"
 shibbolethsp_mpassidmd: "https://mpass-proxy.csc.fi/idp/shibboleth"
 ### ElixirAAI
 shibbolethsp_elixiraaimd: "https://login.elixir-czech.org/proxy/saml2/idp/metadata.php"
+### Eduuni
+shibbolethsp_eduunimd: "https://fse.eduuni.fi/eduuni-idp-metadata.xml"
