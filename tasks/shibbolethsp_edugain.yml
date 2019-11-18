@@ -1,0 +1,13 @@
+- name: Shibboleth SP | Metadata | eduGAIN | Configure
+  blockinfile:
+    dest: /etc/shibboleth/shibboleth2.xml
+    marker: "        <!-- {mark} Ansible managed - eduGAIN metadata -->"
+    insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
+    content: |2
+              <MetadataProvider type="XML" url="{{ shibbolethsp_edugainmd }}" backingFilePath="{{ shibbolethsp_edugainmd | basename }}" reloadInterval="3600">
+                <MetadataFilter type="Signature" certificate="/etc/pki/tls/certs/{{ shibbolethsp_edugaincrt | basename }}"/>
+                <MetadataFilter type="RequireValidUntil" maxValidityInterval="2592000"/>
+              </MetadataProvider>
+   
+- name: Shibboleth SP | Metadata | eduGAIN | Download | Certificate
+  get_url: url={{ shibbolethsp_edugaincrt }} dest=/etc/pki/tls/certs/{{ shibbolethsp_edugaincrt | basename }} mode=0755
