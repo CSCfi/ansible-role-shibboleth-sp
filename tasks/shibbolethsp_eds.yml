@@ -1,0 +1,2 @@
+- name: Shibboleth-eds | Install
+  package: name=shibboleth-embedded-ds state=latest
