@@ -8,3 +8,10 @@
               </MetadataProvider>
    
 
+- name: Shibboleth SP | Metadata | suomi.fi | Configure | Certs start
+  blockinfile:
+    dest: /etc/shibboleth/shibboleth2.xml
+    marker: "        <!-- {mark} Ansible managed - Virtu keys mapping-->"
+    insertbefore: "<!-- Simple file-based resolvers for separate signing/encryption keys. -->"
+    content: |2
+            <RelyingParty Name="https://uusi.tunnistus.fi/idp1" keyName="vrk-cert"/>
