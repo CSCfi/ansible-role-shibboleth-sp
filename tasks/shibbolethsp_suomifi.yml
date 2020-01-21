@@ -1,7 +1,7 @@
 - name: Shibboleth SP | Metadata | suomi.fi | Configure
   blockinfile:
     dest: /etc/shibboleth/shibboleth2.xml
-    marker: "        <!-- {mark} Ansible managed - suomi.fi test metadata -->"
+    marker: "        <!-- {mark} Ansible managed - suomi.fi metadata -->"
     insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
     content: |2
               <MetadataProvider type="XML" url="{{ shibbolethsp_suomifimd }}" backingFilePath="{{ shibbolethsp_suomifimd | basename }}" reloadInterval="3600">
@@ -11,7 +11,7 @@
 - name: Shibboleth SP | Metadata | suomi.fi | Configure | Certs start
   blockinfile:
     dest: /etc/shibboleth/shibboleth2.xml
-    marker: "        <!-- {mark} Ansible managed - Virtu keys mapping-->"
+    marker: "        <!-- {mark} Ansible managed - Virtu keys for suomifi mapping-->"
     insertbefore: "<!-- Simple file-based resolvers for separate signing/encryption keys. -->"
     content: |2
             <RelyingParty Name="https://uusi.tunnistus.fi/idp1" keyName="vrk-cert"/>
