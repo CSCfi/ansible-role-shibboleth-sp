@@ -10,9 +10,10 @@
 - name: Shibboleth SP | Repository | Add
   yum_repository:
     name: Shibboleth
-    description: Shibboleth (Centos 7)
-    baseurl: http://download.opensuse.org/repositories/security://shibboleth/CentOS_7/
-    gpgkey: http://download.opensuse.org/repositories/security:/shibboleth/CentOS_7//repodata/repomd.xml.key
+    enabled: yes
+    description: Shibboleth (Centos {{ ansible_distribution_major_version }})
+    mirrorlist: https://shibboleth.net/cgi-bin/mirrorlist.cgi/CentOS_{{ ansible_distribution_major_version }}
+    gpgkey: https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.key
     gpgcheck: yes
   when: ansible_os_family == "RedHat" or ansible_os_family == "Centos"
 
@@ -24,6 +25,14 @@
 - name: Shibboleth SP | Install
   package: name={{ item }} state={{ shibbolethsp_state }}
   with_items: "{{ shibbolethsp_packages }}"
+
+- name: Shibboleth SP |+Install
+  package: name=python-lxml state=latest
+  when: (ansible_os_family == "RedHat" or ansible_os_family == "Centos") and ansible_distribution_major_version|int == 7
+
+- name: Shibboleth SP |+Install  
+  package: name=python3-lxml state=latest
+  when: (ansible_os_family == "RedHat" or ansible_os_family == "Centos") and ansible_distribution_major_version|int == 8
 
 - name: Shibboleth SP | Enable | Shibboleth
   service:
