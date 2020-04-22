@@ -6,5 +6,24 @@
     content: |2
               <MetadataProvider type="XML" url="{{ shibbolethsp_eduunimd }}" backingFilePath="{{ shibbolethsp_eduunimd | basename }}" reloadInterval="3600">
               </MetadataProvider>
+
+- name: Shibboleth SP | Eduuni | Error handling 
+  blockinfile:
+    dest: /etc/shibboleth/sessionError.html
+    insertafter: "<title><shibmlp errorType/></title>"
+    content: |
+              <div id="error" style="display: none"><shibmlp statusCode2/></div><br/>
+              <div id="entityid" style="display: none"><shibmlp entityID/></div><br/>
+              <script>
+              var error = document.getElementById("error");
+                  if (error.innerHTML == "urn:oasis:names:tc:SAML:2.0:status:RequestDenied") {
+                      var entityid = document.getElementById("entityID")
+                      if (entityid.innerHTML == "http://fse.eduuni.fi/adfs/services/trust") {
+                          window.location = "https://id.eduuni.fi/NotRegistered.aspx";
+                      }
+              }
+              </script>
+
+
    
 
