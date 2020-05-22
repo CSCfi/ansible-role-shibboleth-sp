@@ -10,6 +10,7 @@
 - name: Shibboleth SP | Eduuni | Error handling 
   blockinfile:
     dest: /etc/shibboleth/sessionError.html
+    marker: "<!-- {mark} Ansible managed - Eduuni error handling -->"
     insertafter: "<title><shibmlp errorType/></title>"
     content: |
               <div id="error" style="display: none"><shibmlp statusCode2/></div><br/>
