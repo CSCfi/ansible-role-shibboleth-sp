@@ -275,6 +275,8 @@
     <Attribute name="urn:mpass.id:classLevel" id="mpassClassLevel"/>
     <Attribute name="urn:mpass.id:role" id="mpassRole"/>
     <Attribute name="http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName" id="eidasCurrentGivenName"/>
+    <Attribute name="urn:mpass.id:educationProviderId" id="mpassEducationProviderId"/>
+    <Attribute name="urn:mpass.id:educationProvider" id="mpassEducationProvider"/>
 
     <!-- Eduuni attributes that are not covered elsewhere -->
     <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.5.1.1" id="member"/>
