@@ -2,4 +2,4 @@
 __shibbolethsp_packages:
   - httpd
   - shibboleth
-  - python-lxml
+  - python3-lxml
