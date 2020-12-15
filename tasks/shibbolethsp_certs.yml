@@ -20,6 +20,50 @@
   when:
     - ( shibbolethsp_saml_crt != "not_set_yet" )
 
+- name: Shibboleth SP | Certificates | SAML enc | Insert | /etc/pki/tls/private
+  copy:
+    content: "{{ shibbolethsp_samlenc_key }}"
+    dest: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.samlenc.key"
+    group: root
+    owner: root
+    mode: 0440
+  when:
+    - ( shibbolethsp_samlenc_key != "not_set_yet" )
+  notify:
+    - reown privatekeys-sp
+
+- name: Shibboleth SP | Certificates | SAML enc | Insert | /etc/pki/tls/certs
+  copy:
+    content: "{{ shibbolethsp_samlenc_crt }}"
+    dest: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.samlenc.crt"
+    group: root
+    owner: root
+    mode: 0444
+  when:
+    - ( shibbolethsp_samlenc_crt != "not_set_yet" )
+
+- name: Shibboleth SP | Certificates | SAML sig | Insert | /etc/pki/tls/private
+  copy:
+    content: "{{ shibbolethsp_samlsig_key }}"
+    dest: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.samlsig.key"
+    group: root
+    owner: root
+    mode: 0440
+  when:
+    - ( shibbolethsp_samlsig_key != "not_set_yet" )
+  notify:
+    - reown privatekeys-sp
+
+- name: Shibboleth SP | Certificates | SAML sig | Insert | /etc/pki/tls/certs
+  copy:
+    content: "{{ shibbolethsp_samlsig_crt }}"
+    dest: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.samlsig.crt"
+    group: root
+    owner: root
+    mode: 0444
+  when:
+    - ( shibbolethsp_samlsig_crt != "not_set_yet" )
+
 - name: Shibboleth SP | Certificates | Virtu | SAML | Insert | /etc/pki/tls/private
   copy:
     content: "{{ shibbolethsp_samlvirtu_key }}"
@@ -62,4 +106,43 @@
   when:
     - ( shibbolethsp_saml_crt != "not_set_yet" )
     - ( shibbolethsp_saml_key != "not_set_yet" )
+
+- name: Shibboleth SP | Certificates | SAML sig | Configure | shibboleth2.xml
+  xml:
+    xpath: "{{ shibbolethsp_item.xpath }}"
+    attribute: "{{ shibbolethsp_item.attribute }}"
+    value: "{{ shibbolethsp_item.value }}"
+    ensure: "{{ shibbolethsp_item.ensure }}"
+    file: "/etc/shibboleth/shibboleth2.xml"
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+  with_items:
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver/x:CredentialResolver", attribute: key, value: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.samlsig.key", ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver/x:CredentialResolver", attribute: certificate, value: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.samlsig.crt", ensure: present }
+  loop_control:
+    loop_var: shibbolethsp_item
+  notify: restart shibboleth-sp
+  when:
+    - ( shibbolethsp_samlsig_crt != "not_set_yet" )
+    - ( shibbolethsp_samlsig_key != "not_set_yet" )
+
+- name: Shibboleth SP | Certificates | SAML enc | Configure | shibboleth2.xml
+  xml:
+    xpath: "{{ shibbolethsp_item.xpath }}"
+    attribute: "{{ shibbolethsp_item.attribute }}"
+    value: "{{ shibbolethsp_item.value }}"
+    ensure: "{{ shibbolethsp_item.ensure }}"
+    file: "/etc/shibboleth/shibboleth2.xml"
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+  with_items:
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver/x:CredentialResolver[@use='encryption']", attribute: key, value: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.samlenc.key", ensure: present }
+    - { xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver/x:CredentialResolver[@use='encryption']", attribute: certificate, value: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.samlenc.crt", ensure: present }
+  loop_control:
+    loop_var: shibbolethsp_item
+  notify: restart shibboleth-sp
+  when:
+    - ( shibbolethsp_samlenc_crt != "not_set_yet" )
+    - ( shibbolethsp_samlenc_key != "not_set_yet" )
+
 

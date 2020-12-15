@@ -1,13 +1,37 @@
-- name: Shibboleth SP | Metadata | eduGAIN | Configure
-  blockinfile:
-    dest: /etc/shibboleth/shibboleth2.xml
-    marker: "        <!-- {mark} Ansible managed - eduGAIN metadata -->"
-    insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
-    content: |2
-              <MetadataProvider type="XML" url="{{ shibbolethsp_edugainmd }}" backingFilePath="{{ shibbolethsp_edugainmd | basename }}" reloadInterval="3600">
-                <MetadataFilter type="Signature" certificate="/etc/pki/tls/certs/{{ shibbolethsp_edugaincrt | basename }}"/>
-                <MetadataFilter type="RequireValidUntil" maxValidityInterval="2592000"/>
-              </MetadataProvider>
-   
-- name: Shibboleth SP | Metadata | eduGAIN | Download | Certificate
+- name: Shibboleth SP | eduGAIN | Download | Certificate
   get_url: url={{ shibbolethsp_edugaincrt }} dest=/etc/pki/tls/certs/{{ shibbolethsp_edugaincrt | basename }} mode=0755
+
+- name: Shibboleth SP | eduGAIN | clean |
+  xml:
+    xpath: "{{ shibsp_item }}"
+    state: "absent"
+    file: "/etc/shibboleth/shibboleth2.xml"
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+  loop_control:
+    loop_var: shibsp_item
+  with_items:
+    - '/x:SPConfig/x:ApplicationDefaults/x:MetadataProvider[@url="{{ shibbolethsp_edugainmd }}"]'
+
+- name: Shibboleth SP | eduGAIN | Metadata | Configure
+  xml:
+    file: "/etc/shibboleth/shibboleth2.xml"
+    xpath: "//x:SPConfig/x:ApplicationDefaults/x:Errors"
+    insertafter: yes
+    pretty_print: yes
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+    add_children:
+      - MetadataProvider:
+          type: "XML"
+          url: "{{ shibbolethsp_edugainmd }}"
+          backingFilePath: "{{ shibbolethsp_edugainmd | basename }}"
+          reloadInterval: "3600"
+          _:
+             - MetadataFilter:
+                 type: "Signature"
+                 certificate: "/etc/pki/tls/certs/{{ shibbolethsp_edugaincrt | basename }}"
+             - MetadataFilter:
+                 type: "RequireValidUntil"
+                 maxValidityInterval: "2592000"
+

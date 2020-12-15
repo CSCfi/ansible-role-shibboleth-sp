@@ -1,17 +1,56 @@
-- name: Shibboleth SP | Metadata | suomi.fi | Configure
-  blockinfile:
-    dest: /etc/shibboleth/shibboleth2.xml
-    marker: "        <!-- {mark} Ansible managed - suomi.fi metadata -->"
-    insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
-    content: |2
-              <MetadataProvider type="XML" url="{{ shibbolethsp_suomifimd }}" backingFilePath="{{ shibbolethsp_suomifimd | basename }}" reloadInterval="3600">
-              </MetadataProvider>
-   
+- name: Shibboleth SP | Suomi.fi | clean |
+  xml:
+    xpath: "{{ shibsp_item }}"
+    state: "absent"
+    file: "/etc/shibboleth/shibboleth2.xml"
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+  loop_control:
+    loop_var: shibsp_item
+  with_items:
+    - '/x:SPConfig/x:ApplicationDefaults/x:RelyingParty[@Name="https://uusi.tunnistus.fi/idp1"]'
+    - '/x:SPConfig/x:ApplicationDefaults/x:MetadataProvider[@url="{{ shibbolethsp_suomifimd }}"]'
+    - '/x:SPConfig/x:ApplicationDefaults/x:CredentialResolver[@type="Chaining"]/x:CredentialResolver[@keyName="vrk-cert"]'
 
-- name: Shibboleth SP | Metadata | suomi.fi | Configure | Certs start
-  blockinfile:
-    dest: /etc/shibboleth/shibboleth2.xml
-    marker: "        <!-- {mark} Ansible managed - Virtu keys for suomifi mapping-->"
-    insertbefore: "<!-- Simple file-based resolvers for separate signing/encryption keys. -->"
-    content: |2
-            <RelyingParty Name="https://uusi.tunnistus.fi/idp1" keyName="vrk-cert"/>
+- name: Shibboleth SP | Suomi.fi | Metadata | Configure
+  xml:
+    file: "/etc/shibboleth/shibboleth2.xml"
+    xpath: "//x:SPConfig/x:ApplicationDefaults/x:Errors"
+    insertafter: yes
+    pretty_print: yes
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+    add_children:
+      - MetadataProvider:
+          type: "XML"
+          url: "{{ shibbolethsp_suomifimd }}"
+          backingFilePath: "suomifi-metadata.xml"
+          reloadInterval: "3600"
+
+- name: Shibboleth SP | Suomi.fi | RelyingParty | Configure
+  xml:
+    file: "/etc/shibboleth/shibboleth2.xml"
+    xpath: "//x:SPConfig/x:ApplicationDefaults/x:AttributeFilter"
+    insertafter: yes
+    pretty_print: yes
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+    add_children:
+      - RelyingParty:
+          Name: "https://uusi.tunnistus.fi/idp1"
+          keyName: "vrk-cert"
+   
+- name: Shibboleth SP | Suomi.fi | Credentials | Configure |
+  xml:
+    file: "/etc/shibboleth/shibboleth2.xml"
+    xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver[@type='Chaining']"
+    pretty_print: yes
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+    add_children:
+      - CredentialResolver:
+          type: "File"
+          key: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.virtu.key"
+          certificate: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.virtu.crt"
+          keyName: "vrk-cert"
+

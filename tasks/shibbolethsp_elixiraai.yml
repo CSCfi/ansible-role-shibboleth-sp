@@ -1,10 +1,27 @@
-- name: Shibboleth SP | Metadata | ElixirAAI | Configure
-  blockinfile:
-    dest: /etc/shibboleth/shibboleth2.xml
-    marker: "        <!-- {mark} Ansible managed - ElixirAAI metadata -->"
-    insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
-    content: |2
-              <MetadataProvider type="XML" url="{{ shibbolethsp_elixiraaimd }}" backingFilePath="{{ shibbolethsp_elixiraaimd | basename }}" reloadInterval="3600">
-              </MetadataProvider>
-   
+- name: Shibboleth SP | Elixir AAI | clean |
+  xml:
+    xpath: "{{ shibsp_item }}"
+    state: "absent"
+    file: "/etc/shibboleth/shibboleth2.xml"
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+  loop_control:
+    loop_var: shibsp_item
+  with_items:
+    - '/x:SPConfig/x:ApplicationDefaults/x:MetadataProvider[@url="{{ shibbolethsp_elixiraaimd }}"]'
+
+- name: Shibboleth SP | Elixir AAI | Metadata | Configure
+  xml:
+    file: "/etc/shibboleth/shibboleth2.xml"
+    xpath: "//x:SPConfig/x:ApplicationDefaults/x:Errors"
+    insertafter: yes
+    pretty_print: yes
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+    add_children:
+      - MetadataProvider:
+          type: "XML"
+          url: "{{ shibbolethsp_elixiraaimd }}"
+          backingFilePath: "elixir-aai-metadata.xml"
+          reloadInterval: "3600"   
 

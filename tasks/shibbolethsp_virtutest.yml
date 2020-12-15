@@ -1,28 +1,66 @@
-- name: Shibboleth SP | Metadata | Virtu-test | Configure
-  blockinfile:
-    dest: /etc/shibboleth/shibboleth2.xml
-    marker: "        <!-- {mark} Ansible managed - Virtu-test metadata -->"
-    insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
-    content: |2
-              <MetadataProvider type="XML" url="{{ shibbolethsp_virtutestmd }}" backingFilePath="{{ shibbolethsp_virtutestmd | basename }}" reloadInterval="3600">
-                <MetadataFilter type="Signature" certificate="/etc/pki/tls/certs/{{ shibbolethsp_virtutestcrt | basename }}"/>
-                <MetadataFilter type="RequireValidUntil" maxValidityInterval="2592000"/>
-              </MetadataProvider>
-   
-- name: Shibboleth SP | Metadata | Virtu-test | Download | Certificate
+- name: Shibboleth SP | Virtu-test | Metadata | Download | Certificate
   get_url: url={{ shibbolethsp_virtutestcrt }} dest=/etc/pki/tls/certs/{{ shibbolethsp_virtutestcrt | basename }} mode=0755
 
-- name: Shibboleth SP | Metadata | Virtu-test | Configure | Certs start
-  blockinfile:
-    dest: /etc/shibboleth/shibboleth2.xml
-    marker: "        <!-- {mark} Ansible managed - Virtu-test keys mapping-->"
-    insertbefore: "<!-- Simple file-based resolvers for separate signing/encryption keys. -->"
-    content: |2
-            <RelyingParty Name="CSC Virtu Test Servers" keyName="vrk-cert"/>
-- name: Shibboleth SP | Metadata | Virtu | Configure | Certs start
-  blockinfile:
-    dest: /etc/shibboleth/shibboleth2.xml
-    marker: "        <!-- {mark} Ansible managed - Virtu keys-->"
-    insertbefore: "</CredentialResolver>"
-    content: |2
-              <CredentialResolver type="File" key="/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.virtu.key" certificate="/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.virtu.crt" keyName="vrk-cert"/>
+- name: Shibboleth SP | Virtu-Test | clean |
+  xml:
+    xpath: "{{ shibsp_item }}"
+    state: "absent"
+    file: "/etc/shibboleth/shibboleth2.xml"
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+  loop_control:
+    loop_var: shibsp_item
+  with_items:
+    - '/x:SPConfig/x:ApplicationDefaults/x:RelyingParty[@Name="CSC Virtu Test Servers"]'
+    - '/x:SPConfig/x:ApplicationDefaults/x:MetadataProvider[@url="{{ shibbolethsp_virtutestmd }}"]'
+    - '/x:SPConfig/x:ApplicationDefaults/x:CredentialResolver[@type="Chaining"]/x:CredentialResolver[@keyName="vrk-cert"]'
+
+- name: Shibboleth SP | Virtu-test | Metadata | Configure
+  xml:
+    file: "/etc/shibboleth/shibboleth2.xml"
+    xpath: "//x:SPConfig/x:ApplicationDefaults/x:Errors"
+    insertafter: yes
+    pretty_print: yes
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+    add_children:
+      - MetadataProvider: 
+          type: "XML"
+          url: "{{ shibbolethsp_virtutestmd }}" 
+          backingFilePath: "{{ shibbolethsp_virtutestmd | basename }}" 
+          reloadInterval: "3600"
+          _:
+             - MetadataFilter:
+                 type: "Signature"
+                 certificate: "/etc/pki/tls/certs/{{ shibbolethsp_virtutestcrt | basename }}"
+             - MetadataFilter:
+                 type: "RequireValidUntil"
+                 maxValidityInterval: "2592000"
+
+   
+- name: Shibboleth SP | Virtu-test | RelyingParty | Configure
+  xml:
+    file: "/etc/shibboleth/shibboleth2.xml"
+    xpath: "//x:SPConfig/x:ApplicationDefaults/x:AttributeFilter"
+    insertafter: yes
+    pretty_print: yes
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+    add_children:
+      - RelyingParty:
+          Name: "CSC Virtu Test Servers"
+          keyName: "vrk-cert"
+
+- name: Shibboleth SP | Virtu-test | Credentials | Configure | 
+  xml:
+    file: "/etc/shibboleth/shibboleth2.xml"
+    xpath: "//x:SPConfig/x:ApplicationDefaults/x:CredentialResolver[@type='Chaining']"
+    pretty_print: yes
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+    add_children:
+      - CredentialResolver:
+          type: "File"
+          key: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.virtu.key"
+          certificate: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.virtu.crt"
+          keyName: "vrk-cert"

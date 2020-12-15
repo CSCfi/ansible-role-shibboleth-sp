@@ -1,13 +1,37 @@
-- name: Shibboleth SP | Metadata | Haka | Configure
-  blockinfile:
-    dest: /etc/shibboleth/shibboleth2.xml
-    marker: "        <!-- {mark} Ansible managed - Haka metadata -->"
-    insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
-    content: |2
-              <MetadataProvider type="XML" url="{{ shibbolethsp_hakamd }}" backingFilePath="{{ shibbolethsp_hakamd | basename }}" reloadInterval="3600">
-                <MetadataFilter type="Signature" certificate="/etc/pki/tls/certs/{{ shibbolethsp_hakacrt | basename }}"/>
-                <MetadataFilter type="RequireValidUntil" maxValidityInterval="2592000"/>
-              </MetadataProvider>
-   
 - name: Shibboleth SP | Metadata | Haka | Download | Certificate
   get_url: url={{ shibbolethsp_hakacrt }} dest=/etc/pki/tls/certs/{{ shibbolethsp_hakacrt | basename }} mode=0755
+
+- name: Shibboleth SP | Haka | clean |
+  xml:
+    xpath: "{{ shibsp_item }}"
+    state: "absent"
+    file: "/etc/shibboleth/shibboleth2.xml"
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+  loop_control:
+    loop_var: shibsp_item
+  with_items:
+    - '/x:SPConfig/x:ApplicationDefaults/x:MetadataProvider[@url="{{ shibbolethsp_hakamd }}"]'
+
+- name: Shibboleth SP | Haka | Metadata | Configure
+  xml:
+    file: "/etc/shibboleth/shibboleth2.xml"
+    xpath: "//x:SPConfig/x:ApplicationDefaults/x:Errors"
+    insertafter: yes
+    pretty_print: yes
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+    add_children:
+      - MetadataProvider:
+          type: "XML"
+          url: "{{ shibbolethsp_hakamd }}"
+          backingFilePath: "{{ shibbolethsp_hakamd | basename }}"
+          reloadInterval: "3600"
+          _:
+             - MetadataFilter:
+                 type: "Signature"
+                 certificate: "/etc/pki/tls/certs/{{ shibbolethsp_hakacrt | basename }}"
+             - MetadataFilter:
+                 type: "RequireValidUntil"
+                 maxValidityInterval: "2592000"
+

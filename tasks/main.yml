@@ -97,16 +97,27 @@
     namespaces:
       x: urn:mace:shibboleth:3.0:native:sp:config
 
-- name: Shibboleth SP | Add | CredentialResolver  | /etc/shibboleth/shibboleth2.xml
-  blockinfile:
-    dest: "/etc/shibboleth/shibboleth2.xml"
-    marker: "        <!-- {mark} ansible managed - CredentialResolver  -->"
-    insertbefore: "</ApplicationDefaults>"
-    block: |2
-              <CredentialResolver type="Chaining">
-                <CredentialResolver type="File" use="signing" key="/etc/shibboleth/sp-signing-key.pem" certificate="/etc/shibboleth/sp-signing-cert.pem"/>
-                <CredentialResolver type="File" use="encryption" key="/etc/shibboleth/sp-encrypt-key.pem" certificate="/etc/shibboleth/sp-encrypt-cert.pem"/>
-              </CredentialResolver>
+- name: Shibboleth SP | Add | CredentialResolver | /etc/shibboleth/shibboleth2.xml
+  xml:
+    file: "/etc/shibboleth/shibboleth2.xml"
+    xpath: "//x:SPConfig/x:ApplicationDefaults"
+    pretty_print: yes
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+    add_children:
+      - CredentialResolver:
+          type: "Chaining"
+          _:
+            - CredentialResolver:
+                type: File
+                use: Signing
+                key: /etc/shibboleth/sp-signing-key.pem
+                certificate: /etc/shibboleth/sp-signing-cert.pem
+            - CredentialResolver:
+                type: File
+                use: encryption
+                key: /etc/shibboleth/sp-encrypt-key.pem
+                certificate: /etc/shibboleth/sp-encrypt-cert.pem
 
 - name: Shibboleth SP | Configurables 
   include: shibbolethsp_{{ item }}.yml

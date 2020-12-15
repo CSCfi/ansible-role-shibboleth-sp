@@ -1,10 +1,27 @@
-- name: Shibboleth SP | Metadata | suomi.fi test | Configure
-  blockinfile:
-    dest: /etc/shibboleth/shibboleth2.xml
-    marker: "        <!-- {mark} Ansible managed - suomi.fi test metadata -->"
-    insertbefore: "<!-- Example of remotely supplied batch of signed metadata. -->"
-    content: |2
-              <MetadataProvider type="XML" url="{{ shibbolethsp_suomifitestmd }}" backingFilePath="{{ shibbolethsp_suomifitestmd | basename }}" reloadInterval="3600">
-              </MetadataProvider>
-   
+- name: Shibboleth SP | Suomi.fi-test | clean |
+  xml:
+    xpath: "{{ shibsp_item }}"
+    state: "absent"
+    file: "/etc/shibboleth/shibboleth2.xml"
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+  loop_control:
+    loop_var: shibsp_item
+  with_items:
+    - '/x:SPConfig/x:ApplicationDefaults/x:MetadataProvider[@url="{{ shibbolethsp_suomifitestmd }}"]'
+
+- name: Shibboleth SP | Suomi.fi-test | Metadata | Configure
+  xml:
+    file: "/etc/shibboleth/shibboleth2.xml"
+    xpath: "//x:SPConfig/x:ApplicationDefaults/x:Errors"
+    insertafter: yes
+    pretty_print: yes
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+    add_children:
+      - MetadataProvider:
+          type: "XML"
+          url: "{{ shibbolethsp_suomifitestmd }}"
+          backingFilePath: "suomifi-test-metadata.xml"
+          reloadInterval: "3600"   
 
