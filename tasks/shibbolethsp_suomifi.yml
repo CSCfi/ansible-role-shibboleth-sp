@@ -39,6 +39,9 @@
       - RelyingParty:
           Name: "https://uusi.tunnistus.fi/idp1"
           keyName: "vrk-cert"
+      - RelyingParty:
+          Name: "https://tunnistautuminen.suomi.fi/idp1"
+          keyName: "vrk-cert"
    
 - name: Shibboleth SP | Suomi.fi | Credentials | Configure |
   xml:
