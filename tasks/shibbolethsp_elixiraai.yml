@@ -8,7 +8,7 @@
   loop_control:
     loop_var: shibsp_item
   with_items:
-    - '/x:SPConfig/x:ApplicationDefaults/x:MetadataProvider[@url="{{ shibbolethsp_elixiraaimd }}"]'
+    - '/x:SPConfig/x:ApplicationDefaults/x:MetadataProvider[@backingFilePath="elixir-aai-metadata.xml"]'
 
 - name: Shibboleth SP | Elixir AAI | Metadata | Configure
   xml:
