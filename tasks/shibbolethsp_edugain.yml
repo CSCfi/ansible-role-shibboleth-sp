@@ -35,3 +35,15 @@
                  type: "RequireValidUntil"
                  maxValidityInterval: "2592000"
 
+- name: Shibboleth SP | eduGAIN | clean MetadataFilter elements if shibbolethsp_edugainmd_skipfilters is set |
+  xml:
+    xpath: "{{ shibsp_item }}"
+    state: "absent"
+    file: "/etc/shibboleth/shibboleth2.xml"
+    namespaces:
+      x: urn:mace:shibboleth:3.0:native:sp:config
+  loop_control:
+    loop_var: shibsp_item
+  with_items:
+      - '/x:SPConfig/x:ApplicationDefaults/x:MetadataProvider[@url="{{ shibbolethsp_edugainmd }}"]/x:MetadataFilter'
+  when: shibbolethsp_edugainmd_skipfilters
