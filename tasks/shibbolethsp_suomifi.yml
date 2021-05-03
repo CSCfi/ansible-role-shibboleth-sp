@@ -9,6 +9,7 @@
     loop_var: shibsp_item
   with_items:
     - '/x:SPConfig/x:ApplicationDefaults/x:RelyingParty[@Name="https://uusi.tunnistus.fi/idp1"]'
+    - '/x:SPConfig/x:ApplicationDefaults/x:RelyingParty[@Name="https://tunnistautuminen.suomi.fi/idp1"]'
     - '/x:SPConfig/x:ApplicationDefaults/x:MetadataProvider[@url="{{ shibbolethsp_suomifimd }}"]'
     - '/x:SPConfig/x:ApplicationDefaults/x:CredentialResolver[@type="Chaining"]/x:CredentialResolver[@keyName="vrk-cert"]'
 
@@ -38,10 +39,10 @@
     add_children:
       - RelyingParty:
           Name: "https://uusi.tunnistus.fi/idp1"
-          keyName: "vrk-cert"
+          keyName: "suomifi-cert"
       - RelyingParty:
           Name: "https://tunnistautuminen.suomi.fi/idp1"
-          keyName: "vrk-cert"
+          keyName: "suomifi-cert"
    
 - name: Shibboleth SP | Suomi.fi | Credentials | Configure |
   xml:
@@ -55,5 +56,5 @@
           type: "File"
           key: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.virtu.key"
           certificate: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.virtu.crt"
-          keyName: "vrk-cert"
+          keyName: "suomifi-cert"
 
