@@ -11,7 +11,7 @@
     - '/x:SPConfig/x:ApplicationDefaults/x:RelyingParty[@Name="https://uusi.tunnistus.fi/idp1"]'
     - '/x:SPConfig/x:ApplicationDefaults/x:RelyingParty[@Name="https://tunnistautuminen.suomi.fi/idp1"]'
     - '/x:SPConfig/x:ApplicationDefaults/x:MetadataProvider[@url="{{ shibbolethsp_suomifimd }}"]'
-    - '/x:SPConfig/x:ApplicationDefaults/x:CredentialResolver[@type="Chaining"]/x:CredentialResolver[@keyName="vrk-cert"]'
+    - '/x:SPConfig/x:ApplicationDefaults/x:CredentialResolver[@type="Chaining"]/x:CredentialResolver[@keyName="suomifi-cert"]'
 
 - name: Shibboleth SP | Suomi.fi | Metadata | Configure
   xml:
