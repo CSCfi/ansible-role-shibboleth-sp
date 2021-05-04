@@ -88,6 +88,30 @@
     - ( shibbolethsp_samlvirtu_crt != "not_set_yet" )
     - ( "'virtu' in configurables" )
 
+- name: Shibboleth SP | Certificates | Suomi.fi| SAML | Insert | /etc/pki/tls/private
+  copy:
+    content: "{{ shibbolethsp_samlsuomifi_key }}"
+    dest: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.suomifi.key"
+    group: root
+    owner: root
+    mode: 0440
+  when:
+    - ( shibbolethsp_samlsuomifi_key != "not_set_yet" )
+    - ( "'suomifi' in configurables" )
+  notify:
+    - reown privatekeys-sp
+
+- name: Shibboleth SP | Certificates | Suomi.fi | SAML | Insert | /etc/pki/tls/certs
+  copy:
+    content: "{{ shibbolethsp_samlsuomifi_crt }}"
+    dest: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.suomifi.crt"
+    group: root
+    owner: root
+    mode: 0444
+  when:
+    - ( shibbolethsp_samlsuomifi_crt != "not_set_yet" )
+    - ( "'suomifi' in configurables" )    
+
 - name: Shibboleth SP | Certificates | SAML | Configure | shibboleth2.xml
   xml:
     xpath: "{{ shibbolethsp_item.xpath }}"

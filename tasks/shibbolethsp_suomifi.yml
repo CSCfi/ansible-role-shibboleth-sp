@@ -54,7 +54,7 @@
     add_children:
       - CredentialResolver:
           type: "File"
-          key: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.virtu.key"
-          certificate: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.virtu.crt"
+          key: "/etc/pki/tls/private/{{ shibbolethsp_fqdn }}.saml.suomifi.key"
+          certificate: "/etc/pki/tls/certs/{{ shibbolethsp_fqdn }}.saml.suomifi.crt"
           keyName: "suomifi-cert"
 
