@@ -9,6 +9,8 @@ shibbolethsp_saml_crt: "{{ vault_saml_crt | default('not_set_yet') }}"
 shibbolethsp_saml_key: "{{ vault_saml_key | default('not_set_yet') }}"
 shibbolethsp_samlvirtu_key: "{{ vault_samlvirtu_key | default('not_set_yet') }}"
 shibbolethsp_samlvirtu_crt: "{{ vault_samlvirtu_crt | default('not_set_yet') }}"
+shibbolethsp_samlsuomifi_key: "{{ vault_samlsuomifi_key | default('not_set_yet') }}"
+shibbolethsp_samlsuomifi_crt: "{{ vault_samlsuomifi_crt | default('not_set_yet') }}"
 shibbolethsp_state: latest
 shibbolethsp_fqdn: "{{ ansible_fqdn }}"
 shibbolethsp_entityid: https://{{ shibbolethsp_fqdn }}/shibboleth
