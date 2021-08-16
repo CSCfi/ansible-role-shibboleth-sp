@@ -21,7 +21,7 @@
     add_children:
       - MetadataProvider:
           type: "XML"
-          url: "{{ shibbolethsp_puhuri }}"
+          url: "{{ shibbolethsp_puhurimd }}"
           backingFilePath: "puhuri-metadata.xml"
           reloadInterval: "3600"
 
