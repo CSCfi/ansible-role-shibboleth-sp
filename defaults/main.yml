@@ -64,3 +64,5 @@ shibbolethsp_eduunimd: "https://id.eduuni.fi/eduuni-idp-metadata.xml"
 shibbolethsp_suomifitestmd: "https://testi.apro.tunnistus.fi/static/metadata/idp-metadata.xml"
 ### suomi.fi
 shibbolethsp_suomifimd: "https://tunnistus.suomi.fi/static/metadata/idp-metadata.xml"
+### Puhuri
+shibbolethsp_puhurimd: "https://proxy.prod.puhuri.eduteams.org/metadata/frontend.xml"
