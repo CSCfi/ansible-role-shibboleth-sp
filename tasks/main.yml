@@ -13,7 +13,9 @@
     enabled: yes
     description: Shibboleth (Centos {{ ansible_distribution_major_version }})
     mirrorlist: https://shibboleth.net/cgi-bin/mirrorlist.cgi/CentOS_{{ ansible_distribution_major_version }}
-    gpgkey: https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.key
+    gpgkey:
+      - https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.key
+      - https://shibboleth.net/downloads/service-provider/RPMS/cantor.repomd.xml.key
     gpgcheck: yes
   when: ansible_os_family == "RedHat" or ansible_os_family == "Centos"
 
