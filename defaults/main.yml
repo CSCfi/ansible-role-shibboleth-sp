@@ -7,10 +7,10 @@ shibbolethsp_samlenc_crt: "{{ vault_samlenc_crt | default('not_set_yet') }}"
 shibbolethsp_samlenc_key: "{{ vault_samlenc_key | default('not_set_yet') }}"
 shibbolethsp_saml_crt: "{{ vault_saml_crt | default('not_set_yet') }}"
 shibbolethsp_saml_key: "{{ vault_saml_key | default('not_set_yet') }}"
-shibbolethsp_samlvirtu_key: "{{ vault_samlvirtu_key | default('not_set_yet') }}"
-shibbolethsp_samlvirtu_crt: "{{ vault_samlvirtu_crt | default('not_set_yet') }}"
-shibbolethsp_samlsuomifi_key: "{{ vault_samlsuomifi_key | default('not_set_yet') }}"
-shibbolethsp_samlsuomifi_crt: "{{ vault_samlsuomifi_crt | default('not_set_yet') }}"
+shibbolethsp_samlvirtu_key: "{{ vault_samlvirtu_key | default('not_set_yet') }}"
+shibbolethsp_samlvirtu_crt: "{{ vault_samlvirtu_crt | default('not_set_yet') }}"
+shibbolethsp_samlsuomifi_key: "{{ vault_samlsuomifi_key | default('not_set_yet') }}"
+shibbolethsp_samlsuomifi_crt: "{{ vault_samlsuomifi_crt | default('not_set_yet') }}"
 shibbolethsp_state: latest
 shibbolethsp_fqdn: "{{ ansible_fqdn }}"
 shibbolethsp_entityid: https://{{ shibbolethsp_fqdn }}/shibboleth
@@ -47,8 +47,8 @@ shibbolethsp_hakacrt: "https://wiki.eduuni.fi/download/attachments/27297775/haka
 shibbolethsp_edugainmd: "https://haka.funet.fi/edugain-nightly/gen-edugain/sp-{{ shibbolethsp_spid }}-metadata-eduGain.xml"
 shibbolethsp_edugaincrt: "https://wiki.eduuni.fi/download/attachments/27297748/haka-edugain-sign.csc.fi.2020.pem"
 ### Virtu
-shibbolethsp_virtumd: "https://virtu-ds.csc.fi/fed/virtu/virtu-metadata-v6.xml"
-shibbolethsp_virtucrt: "https://wiki.eduuni.fi/download/attachments/28345571/virtu-metadata-signing-crt-2021.pem"
+shibbolethsp_virtumd: "https://virtu-ds.csc.fi/fed/virtu/virtu-metadata-v7.xml"
+shibbolethsp_virtucrt: "https://wiki.eduuni.fi/download/attachments/28345571/virtu-metadata-signing-crt-2022.pem"
 ### Virtu-test
 shibbolethsp_virtutestmd: "https://virtu-ds.csc.fi/fed/virtu-test/CSC_Virtu_Test_Servers-metadata.xml"
 shibbolethsp_virtutestcrt: "https://wiki.eduuni.fi/download/attachments/28345566/virtu-test-metadata-signing-crt-2015.pem"
