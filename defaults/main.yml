@@ -42,10 +42,10 @@ shibbolethsp_hakatestmd: "https://haka.funet.fi/metadata/haka_test_metadata_sign
 shibbolethsp_hakatestcrt: "https://wiki.eduuni.fi/download/attachments/27297785/haka_testi_2018_sha2.crt"
 ### Haka
 shibbolethsp_hakamd: "https://haka.funet.fi/metadata/haka-metadata.xml"
-shibbolethsp_hakacrt: "https://wiki.eduuni.fi/download/attachments/27297860/haka-sign-v7.pem"
+shibbolethsp_hakacrt: "https://wiki.eduuni.fi/download/attachments/27297860/haka-sign-v8.pem"
 ### Edugain
 shibbolethsp_edugainmd: "https://haka.funet.fi/edugain-nightly/gen-edugain/sp-{{ shibbolethsp_spid }}-metadata-eduGain.xml"
-shibbolethsp_edugaincrt: "https://wiki.eduuni.fi/download/attachments/27297748/haka-edugain-sign.csc.fi-2022.pem"
+shibbolethsp_edugaincrt: "https://wiki.eduuni.fi/download/attachments/27297748/haka-edugain-sign.csc.fi-2023.pem"
 ### Virtu
 shibbolethsp_virtumd: "https://virtu-ds.csc.fi/fed/virtu/virtu-metadata-v7.xml"
 shibbolethsp_virtucrt: "https://wiki.eduuni.fi/download/attachments/28345571/virtu-metadata-signing-crt-2022.pem"
