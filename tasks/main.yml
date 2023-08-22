@@ -7,7 +7,19 @@
     - "default.yml"
   when: __shibbolethsp_packages is not defined or shibbolethsp_service_name is not defined
 
-- name: Shibboleth SP | Repository | Add
+- name: Shibboleth SP | Repository | Add RHEL9
+  yum_repository:
+    name: Shibboleth
+    enabled: yes
+    description: Shibboleth (Centos {{ ansible_distribution_major_version }})
+    mirrorlist: https://shibboleth.net/cgi-bin/mirrorlist.cgi/rockylinux{{ ansible_distribution_major_version }}
+    gpgkey:
+      - https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.key
+      - https://shibboleth.net/downloads/service-provider/RPMS/cantor.repomd.xml.key
+    gpgcheck: yes
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "9"
+
+- name: Shibboleth SP | Repository | Add CentOS Redhat <= 8
   yum_repository:
     name: Shibboleth
     enabled: yes
@@ -17,7 +29,7 @@
       - https://shibboleth.net/downloads/service-provider/RPMS/repomd.xml.key
       - https://shibboleth.net/downloads/service-provider/RPMS/cantor.repomd.xml.key
     gpgcheck: yes
-  when: ansible_os_family == "RedHat" or ansible_os_family == "Centos"
+  when: (ansible_os_family == "RedHat" and ansible_distribution_major_version != "9") or ansible_os_family == "Centos"
 
 - name: Shibboleth SP | Define | Packages
   set_fact:
