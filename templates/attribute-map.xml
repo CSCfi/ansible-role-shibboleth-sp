@@ -298,6 +298,8 @@
     <Attribute name="urn:mpass.id:schoolInfo" id="mpassSchoolInfo"/>
     <Attribute name="urn:mpass.id:role_v1.1" id="mpassRoleV11"/>
     <Attribute name="urn:mpass.id:learningMaterialsCharge" id="mpassLearningMaterialsCharge"/>
+    <Attribute name="urn:mpass.id:nickname" id="mpassNickname"/>
+    <Attribute name="urn:mpass.id:originalIssuer" id="mpassOriginalIssuer"/>
 
     <!-- Eduuni attributes that are not covered elsewhere -->
     <Attribute name="urn:oid:1.3.6.1.4.1.5923.1.5.1.1" id="member"/>
