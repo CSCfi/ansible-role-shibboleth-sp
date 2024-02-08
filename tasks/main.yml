@@ -134,6 +134,6 @@
                 certificate: /etc/shibboleth/sp-encrypt-cert.pem
 
 - name: Shibboleth SP | Configurables 
-  include: shibbolethsp_{{ item }}.yml
+  include_tasks: shibbolethsp_{{ item }}.yml
   with_items: "{{ configurables }}"
   when: configurables is defined and configurables!=""
