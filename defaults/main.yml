@@ -47,8 +47,8 @@ shibbolethsp_hakacrt: "https://wiki.eduuni.fi/download/attachments/27297860/haka
 shibbolethsp_edugainmd: "https://haka.funet.fi/edugain-nightly/gen-edugain/sp-{{ shibbolethsp_spid }}-metadata-eduGain.xml"
 shibbolethsp_edugaincrt: "https://wiki.eduuni.fi/download/attachments/27297748/haka-edugain-sign.csc.fi.2023.pem"
 ### Virtu
-shibbolethsp_virtumd: "https://virtu-ds.csc.fi/fed/virtu/virtu-metadata-v8.xml"
-shibbolethsp_virtucrt: "https://wiki.eduuni.fi/download/attachments/28345571/virtu-metadata-signing-crt-2024.pem"
+shibbolethsp_virtumd: "https://virtu-ds.csc.fi/fed/virtu/virtu-metadata-v9.xml"
+shibbolethsp_virtucrt: "https://wiki.eduuni.fi/download/attachments/28345571/virtu-metadata-signing-crt-2024v2.pem"
 ### Virtu-test
 shibbolethsp_virtutestmd: "https://virtu-ds.csc.fi/fed/virtu-test/CSC_Virtu_Test_Servers-metadata.xml"
 shibbolethsp_virtutestcrt: "https://wiki.eduuni.fi/download/attachments/28345566/virtu-test-metadata-signing-crt-2015.pem"
